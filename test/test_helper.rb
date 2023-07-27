@@ -10,4 +10,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Método auxiliar para criar uma nova férias associada a um colaborador
+  def create_vacation_for_employee(employee_id, start_date, end_date)
+    Vacation.create(
+      employee_id: employee_id,
+      start_date: start_date,
+      end_date: end_date
+    )
+  end
 end

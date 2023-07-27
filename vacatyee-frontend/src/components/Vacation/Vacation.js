@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import api from '../../providers/api'
 import Layout from "../Layout/Layout";
 import VacationList from './VacationList';
+import AddVacationForm from './AddVacationForm';
+import EmployeeList from '../Employee/EmployeeList';
 
 function Vacation() {
   const [vacations, setVacations] = useState([]);
 
   useEffect(() => {
     fetchVacations();
-  }, []);
+  },[]);
 
   const fetchVacations = async () => {
     try {
@@ -21,8 +23,9 @@ function Vacation() {
   };
   return (
     <Layout>
-      <h2>Ferias</h2>
-    <VacationList/>
+      <AddVacationForm/>
+      <VacationList/>
+      <EmployeeList/>
     </Layout>
   );
 }

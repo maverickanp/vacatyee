@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  employee: one
+  employee: artur
   start_date: 2023-07-25
-  end_date: 2023-07-25
+  end_date: 2023-08-25
 
 two:
   employee: two

@@ -19,14 +19,14 @@ function VacationList() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Employee Vacations</h2>
+      <h2 className="text-xl font-bold mb-4">Lista de Ferias dos colaboradores</h2>
       <table className="w-full border-collapse">
         <thead>
           <tr>
             <th className="border p-2">#</th>
-            <th className="border p-2">Employee ID</th>
-            <th className="border p-2">Start Date</th>
-            <th className="border p-2">End Date</th>
+            <th className="border p-2">Colaborador</th>
+            <th className="border p-2">Data de Inicio</th>
+            <th className="border p-2">Data de Termino</th>
           </tr>
         </thead>
         <tbody>

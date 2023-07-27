@@ -8,18 +8,20 @@ function Footer() {
           <ul className="flex space-x-4">
             <li>
               <a
-                href="/"
+                href="https://linkedin.com/in/artur-pedrosa/"
+                target="_blank"
+                rel="noreferrer"
                 className="hover:text-gray-300 transition duration-300 ease-in-out"
               >
-                About
+                Linkedin
               </a>
             </li>
             <li>
               <a
-                href="/"
+                href="https://github.com/maverickanp/vacatyee"
                 className="hover:text-gray-300 transition duration-300 ease-in-out"
               >
-                Services
+                Github
               </a>
             </li>
             {/* Add more footer items as needed */}
