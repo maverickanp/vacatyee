@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import api from '../../providers/api'
+import React, { useState, useEffect } from "react";
+import { getColaboradores } from "../../services/EmployeesService";
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
 
-    useEffect(() => {
-        fetchEmployees();
-      }, []);
+  useEffect(() => {
+      fetchEmployees();
+    }, []);
 
-    const fetchEmployees = async () => {
-        try {
-            const response = await api.get('/api/employees');
-            setEmployees(response.data);
-        } catch (error) {
-            console.error('Erro ao obter informacoes dos colaboradores:', error);
-        }
-    };
+  const fetchEmployees = async () => {
+    try {
+      const response = await getColaboradores();
+        setEmployees(response);
+        console.log("Colaborador List:", response);
+    } catch (error) {
+      console.error("Erro ao obter informacoes dos colaboradores:", error);
+    }
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Lista dos colaboradores</h2>
@@ -26,21 +28,25 @@ function EmployeeList() {
             <th className="border p-2">Colaborador</th>
             <th className="border p-2">Cargo</th>
             <th className="border p-2">Data de Contratação</th>
+            <th className="border p-2">Excluir</th>
           </tr>
         </thead>
         <tbody>
-          {employees.map((employees, index) => (
-            <tr key={index}>
-              <td className="border p-2">{index + 1}</td>
-              <td className="border p-2">{employees.name}</td>
-              <td className="border p-2">{employees.position}</td>
-              <td className="border p-2">{employees.hire_date}</td>
-            </tr>
-          ))}
+          {employees !== 'undefined'
+            ? employees.map((employee, index) => (
+                <tr key={index}>
+                  <td className="border p-2">{index + 1}</td>
+                  <td className="border p-2">{employee.name}</td>
+                  <td className="border p-2">{employee.position}</td>
+                  <td className="border p-2">{employee.hire_date}</td>
+                  <td className="border p-2">Remover</td>
+                </tr>
+              ))
+            : ""}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default EmployeeList
+export default EmployeeList;

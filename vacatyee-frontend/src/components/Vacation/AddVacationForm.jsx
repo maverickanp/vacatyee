@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import api from '../../providers/api';
+import Dropdown from '../Layout/Dropdown';
 
 const AddVacationForm = ({onVacationAdded}) => {
+  const [employees, setEmployees] = useState([]);
+
   const [vacations, setVacationData] = useState({
     employee_id: '',
     start_date: '',
@@ -26,6 +29,24 @@ const AddVacationForm = ({onVacationAdded}) => {
     }
   };
 
+  const handleEmployees = async () => {
+    try {
+      const response = await api.post('/api/employees');
+
+      const dropdownOptions = () => {
+        response.data.map((item) => {
+          return ({
+            value: item.id,
+            label: item.name
+          });
+        })
+      }
+      return dropdownOptions;
+    } catch (error) {
+      console.error('Erro ao adicionar ferias:', error);
+    }
+  }
+
   return (
     <div className="p-4">
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -33,6 +54,7 @@ const AddVacationForm = ({onVacationAdded}) => {
           <label htmlFor="employee_id" className="block font-medium text-gray-700">
             Colaborador
           </label>
+          <Dropdown placeHolder={'select'} options={[]}/>
           <input
             type="text"
             id="employee_id"
