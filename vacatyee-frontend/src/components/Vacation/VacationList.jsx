@@ -17,6 +17,14 @@ function VacationList() {
         }
     };
 
+    const calcDays = (start, end) => {
+      let days = 0;
+      //var s = new Date(1504095567183).toLocaleDateString("pt-BR")
+      let dtStart = new Date(start);
+      let dtend = new Date(end);
+      days = dtend.getTime() - dtStart.getTime();
+      return Math.ceil(days / (1000*3600*24));
+    }
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Lista de Ferias dos colaboradores</h2>
@@ -27,6 +35,8 @@ function VacationList() {
             <th className="border p-2">Colaborador</th>
             <th className="border p-2">Data de Inicio</th>
             <th className="border p-2">Data de Termino</th>
+            <th className="border p-2">Dias</th>
+
           </tr>
         </thead>
         <tbody>
@@ -36,6 +46,7 @@ function VacationList() {
               <td className="border p-2">{vacation.employee_id}</td>
               <td className="border p-2">{vacation.start_date}</td>
               <td className="border p-2">{vacation.end_date}</td>
+              <td className="border p-2">{calcDays(vacation.start_date, vacation.end_date)}</td>
             </tr>
           ))}
         </tbody>
