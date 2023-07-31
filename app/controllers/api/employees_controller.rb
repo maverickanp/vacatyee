@@ -32,7 +32,7 @@ class Api::EmployeesController < ApplicationController
     def destroy
       employee = Employee.find(params[:id])
       employee.destroy
-      render json: vacation
+      render json: { message: 'Colaborador removido com sucesso' }
     end    
 
     private

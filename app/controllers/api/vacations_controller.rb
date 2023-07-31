@@ -32,7 +32,7 @@ class Api::VacationsController < ApplicationController
   def destroy
     vacation = Vacation.find(params[:id])
     vacation.destroy
-    render json: vacation
+    render json: { message: 'Ferias removidas com sucesso!' }
   end
   
     private
