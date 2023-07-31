@@ -19,4 +19,27 @@ class ActiveSupport::TestCase
       end_date: end_date
     )
   end
+
+  # Cada colaborador ganha 30 dias de férias a cada período de 12 meses.
+  # teste se o colaborador tem mais de 365 dias de emprego
+  def test_create_vacation_for_employee
+    # Obter um colaborador de fixture (dados de teste)
+    employee = employees(:artur)
+
+    # Criar uma nova férias associada ao colaborador
+    vacation = create_vacation_for_employee(
+      employee.id,
+      Date.new(2023, 7, 25),
+      Date.new(2023, 8, 1)
+    )
+
+    # Verificar se a nova férias foi salva corretamente
+    assert vacation.save, "Falha ao salvar as férias"
+
+    # Verificar se a férias está associada ao colaborador correto
+    assert_equal employee.id, vacation.employee_id, "A férias não está associada ao colaborador correto"
+
+    # Verificar se a diferença entre hire_date e start_date é maior que 12 meses
+    assert (vacation.starts_at - employee.hire_date).to_i > 365, "A diferença entre as datas é menor ou igual a 12 meses"
+  end
 end
