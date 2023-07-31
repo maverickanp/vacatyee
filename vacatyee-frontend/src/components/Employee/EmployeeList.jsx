@@ -1,4 +1,20 @@
-function EmployeeList({employees}) {
+import { removeEmployee } from '../../services/EmployeesService';
+
+function EmployeeList({onEmployeeRemoved, employees}) {
+
+  const handleRemoveEmployee = async (id) => {
+    try {
+      const response = await removeEmployee(id)
+      onEmployeeRemoved(response.data);
+    } catch (error) {
+      if(error.response !== undefined){
+        alert("removido com sucesso!")
+      }else{
+        console.error('Erro ao excluir o colaborador',error)
+      }
+    }
+
+  }
 
   return (
     <div className="p-4">
@@ -15,13 +31,13 @@ function EmployeeList({employees}) {
         </thead>
         <tbody>
           {employees !== 'undefined'
-            ? employees.map((employee, index) => (
+            ? employees?.map((employee, index) => (
                 <tr key={index}>
                   <td className="border p-2">{index + 1}</td>
                   <td className="border p-2">{employee.name}</td>
                   <td className="border p-2">{employee.position}</td>
                   <td className="border p-2">{employee.hire_date}</td>
-                  <td className="border p-2">Remover</td>
+                  <td className="border p-2"><button onClick={() => handleRemoveEmployee(employee.id)} className='hover:text-red-600'>Remove</button></td>
                 </tr>
               ))
             : ""}

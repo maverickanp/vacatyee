@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../providers/api'
 import VacationList from './VacationList';
 import AddVacationForm from './AddVacationForm';
-import { getColaboradores } from '../../services/EmployeesService';
+import { getEmployees } from '../../services/EmployeesService';
 import { getVacations } from '../../services/VacationsService';
 
 function Vacation() {
@@ -17,7 +16,7 @@ function Vacation() {
 
   const fetchEmployees = async () => {
     try {
-      const response = await getColaboradores();
+      const response = await getEmployees();
         setEmployees(response.data);
         console.log("Colaborador List:", response);
     } catch (error) {
@@ -39,6 +38,7 @@ function Vacation() {
   };
   const handleVacationRemoved = (id) => {
     setVacations((prevVacations) => prevVacations.filter((vacation) => vacation.id !== id));
+    console.log("REMOVED");
   };
   return (
     

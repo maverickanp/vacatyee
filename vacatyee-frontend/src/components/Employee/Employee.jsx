@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddEmployeeForm from './AddEmployeeForm';
 import EmployeeList from './EmployeeList';
-import { getColaboradores } from '../../services/EmployeesService';
+import { getEmployees } from '../../services/EmployeesService';
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -12,21 +12,25 @@ const Employee = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await getColaboradores();
-        setEmployees(response);
-        console.log("Colaborador List:", response);
+      const response = await getEmployees();
+        setEmployees(response.data);
     } catch (error) {
       console.error("Erro ao obter informacoes dos colaboradores:", error);
     }
   };
 
-  const handleEmployeeAdded = (colaborador) => {
-    setEmployees([...employees, colaborador]);
+  const handleEmployeeAdded = (employee) => {
+    setEmployees([...employees, employee]);
+  };
+
+  const handleEmployeeRemoved = (id) => {
+    setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
+    console.log("REMOVED");
   };
   return (
     <div className='flex items-center justify-around'>
       <AddEmployeeForm onEmployeeAdded={handleEmployeeAdded} />
-      <EmployeeList employees={employees}/>
+      <EmployeeList onEmployeeRemoved={handleEmployeeRemoved} employees={employees}/>
     </div>
   )
 }

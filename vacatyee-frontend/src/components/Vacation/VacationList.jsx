@@ -47,21 +47,23 @@ function VacationList({onVacationRemoved, vacations}) {
             <th className="border p-2">Data de Termino</th>
             <th className="border p-2">Dias de Ferias</th>
             <th className="border p-2">Ferias Restantes</th>
-            <th className='border p-2'>Remove</th>
+            <th className='border p-2'>Excluir</th>
           </tr>
         </thead>
         <tbody>
-          {vacations.map((vacation, index) => (
-            <tr key={index}>
-              <td className="border p-2">{index + 1}</td>
-              <td className="border p-2">{vacation.employee_id}</td>
-              <td className="border p-2">{vacation.start_date}</td>
-              <td className="border p-2">{vacation.end_date}</td>
-              <td className="border p-2">{calcDays(vacation.start_date, vacation.end_date)}</td>
-              <td className="border p-2">{calcLeftVacations(vacation.start_date, vacation.end_date)}</td>
-              <td className="border p-2"><button onClick={() => handleRemoveVacation(vacation.id)} className='hover:text-red-600'>Remove</button></td>
-            </tr>
-          ))}
+        {vacations !== 'undefined'
+          ? vacations.map((vacation, index) => (
+              <tr key={index}>
+                <td className="border p-2">{index + 1}</td>
+                <td className="border p-2">{vacation.employee_id}</td>
+                <td className="border p-2">{vacation.start_date}</td>
+                <td className="border p-2">{vacation.end_date}</td>
+                <td className="border p-2">{calcDays(vacation.start_date, vacation.end_date)}</td>
+                <td className="border p-2">{calcLeftVacations(vacation.start_date, vacation.end_date)}</td>
+                <td className="border p-2"><button onClick={() => handleRemoveVacation(vacation.id)} className='hover:text-red-600'>Remove</button></td>
+              </tr>
+            ))
+          : ""}
         </tbody>
       </table>
     </div>
