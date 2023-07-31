@@ -21,12 +21,14 @@ const Employee = () => {
 
   const handleEmployeeAdded = (employee) => {
     setEmployees([...employees, employee]);
+    console.log("handleEmployeeAdded");
   };
 
   const handleEmployeeRemoved = (id) => {
-    setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
-    console.log("REMOVED");
+    let afterRemove = employees.filter((employee) => employee.id !== id);
+    setEmployees(afterRemove);
   };
+
   return (
     <div className='flex items-center justify-around'>
       <AddEmployeeForm onEmployeeAdded={handleEmployeeAdded} />

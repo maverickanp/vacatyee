@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../../providers/api';
+import { addEmployee } from '../../services/EmployeesService';
 
 const AddEmployeeForm = ({onEmployeeAdded}) => {
   const [employee, setEmployeeData] = useState({
@@ -16,9 +16,7 @@ const AddEmployeeForm = ({onEmployeeAdded}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post('/api/employees', {        
-        employee
-      });
+      const response = await addEmployee(employee)
       
       onEmployeeAdded(response.data);
     } catch (error) {

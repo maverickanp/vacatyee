@@ -16,7 +16,6 @@ const AddVacationForm = ({onVacationAdded, employees}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setVacationData({ ...vacation, [name]: value });
-    console.log('VACATION - FERIAS:', vacation)
   };
 
   const handleSubmit = async (event) => {

@@ -5,13 +5,10 @@ function EmployeeList({onEmployeeRemoved, employees}) {
   const handleRemoveEmployee = async (id) => {
     try {
       const response = await removeEmployee(id)
-      onEmployeeRemoved(response.data);
+      onEmployeeRemoved(id);
+      alert("removido com sucesso!")
     } catch (error) {
-      if(error.response !== undefined){
-        alert("removido com sucesso!")
-      }else{
-        console.error('Erro ao excluir o colaborador',error)
-      }
+        console.error('Erro ao excluir o colaborador',error)      
     }
 
   }
