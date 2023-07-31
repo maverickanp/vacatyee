@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import api from '../../providers/api';
-import Dropdown from '../Layout/Dropdown';
+import {Modal} from '../Layout/Modal';
+import { addVacation } from '../../services/VacationsService';
 
-const AddVacationForm = ({onVacationAdded}) => {
-  const [employees, setEmployees] = useState([]);
+const AddVacationForm = ({onVacationAdded, employees}) => {
+  const [modal, setModal] = useState();
+  const [modalData, setModalData] = useState();  
+  const [modalError, setModalError] = useState();
 
-  const [vacations, setVacationData] = useState({
+  const [vacation, setVacationData] = useState({
     employee_id: '',
     start_date: '',
     end_date: '',
@@ -13,57 +15,50 @@ const AddVacationForm = ({onVacationAdded}) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setVacationData({ ...vacations, [name]: value });
+    setVacationData({ ...vacation, [name]: value });
+    console.log('VACATION - FERIAS:', vacation)
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post('/api/vacations', {        
-        vacations
-      });
-      
-      onVacationAdded(response.data);
-    } catch (error) {
-      console.error('Erro ao adicionar ferias:', error);
-    }
+        const response = await addVacation(vacation)
+        onVacationAdded(response.data);
+      } catch (error) {
+        // Handle error response here
+        if(error.response !== undefined){
+          setModalData(error.response.data)
+          setModalError('Erro ao adicionar ferias');
+          setModal(true);
+        }
+      }
+    
   };
 
-  const handleEmployees = async () => {
-    try {
-      const response = await api.post('/api/employees');
-
-      const dropdownOptions = () => {
-        response.data.map((item) => {
-          return ({
-            value: item.id,
-            label: item.name
-          });
-        })
-      }
-      return dropdownOptions;
-    } catch (error) {
-      console.error('Erro ao adicionar ferias:', error);
-    }
-  }
-
   return (
+    <>
+      <Modal id={'medium-modal'} 
+      title={modalError} 
+      content={modalData}
+      modal={modal}
+      setModal={setModal}
+      />
     <div className="p-4">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="employee_id" className="block font-medium text-gray-700">
-            Colaborador
-          </label>
-          <Dropdown placeHolder={'select'} options={[]}/>
-          <input
-            type="text"
-            id="employee_id"
-            name="employee_id"
-            value={vacations.employee_id}
-            onChange={handleChange}
-            className="mt-1 p-2 border border-gray-300 w-full rounded-md"
-            required
-          />
+        <label htmlFor="employee_id" className="block font-medium text-gray-700">
+          Colaborador
+        </label>
+        <select id="employee_id" name="employee_id" 
+        className="mt-1 p-2 border border-gray-300 w-full rounded-md"
+        onChange={handleChange}
+        >
+            <option>Selecione:</option>
+
+          {employees?.map((option) => (
+            <option key={option.id} value={option.id}>{option.name}</option>
+          ))}
+        </select>          
         </div>
 
         <div>
@@ -74,7 +69,7 @@ const AddVacationForm = ({onVacationAdded}) => {
             type="date"
             id="start_date"
             name="start_date"
-            value={vacations.start_date}
+            value={vacation.start_date}
             onChange={handleChange}
             className="mt-1 p-2 border border-gray-300 w-full rounded-md"
             required
@@ -89,7 +84,7 @@ const AddVacationForm = ({onVacationAdded}) => {
             type="date"
             id="end_date"
             name="end_date"
-            value={vacations.end_date}
+            value={vacation.end_date}
             onChange={handleChange}
             className="mt-1 p-2 border border-gray-300 w-full rounded-md"
             required
@@ -104,6 +99,7 @@ const AddVacationForm = ({onVacationAdded}) => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

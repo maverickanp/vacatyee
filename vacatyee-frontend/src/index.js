@@ -7,23 +7,31 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Employee from './components/Employee/Employee';
 import Vacation from './components/Vacation/Vacation';
 import App from './App';
+import Home from './routes/Home';
+import Error from './routes/Error';
 
 
 
 const router = createBrowserRouter([
-  {
-    path:"/",
-    element: <App/>
-  },
-  {
-    path:"/colaboradores",
-    element: <Employee/>
-  },
-  {
-    path:"/ferias",
-    element: <Vacation/>
-  },
-  ])
+    {
+        path:"/",
+        element: <App/>,
+        errorElement: <Error/>,
+        children:[
+            {
+                path:"/",
+                element:<Home/>
+            },
+            {
+                path:"/employees",
+                element: <Employee/>,
+            },
+            {
+                path:"/vacations",
+                element: <Vacation/>,
+            }, ],      
+    },
+    ])
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>

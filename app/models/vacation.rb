@@ -11,9 +11,13 @@ class Vacation < ApplicationRecord
   def validate_vacation_days
     vacation_days = (self.end_date - self.start_date).to_i + 1
     employee_vacation_days_available = self.employee.vacation_days_available
-
-    if vacation_days < 10 || vacation_days > employee_vacation_days_available
-      errors.add(:base, "Nao pode ter menos que 10 dias consecutivos")
+    if employee_vacation_days_available > 0
+      errors.add(:base, "Voce nao tem ferias para usufruir.")
+      errors.add(:base, "Dias de ferias Disponiveis: #{employee_vacation_days_available}")
+    elsif vacation_days < 10 
+      errors.add(:base, "Nao pode tirar menos que 10 dias consecutivos")
+      errors.add(:base, "Dias de Ferias requisitado: #{vacation_days}")
+      errors.add(:base, "Dias de ferias Disponiveis: #{employee_vacation_days_available}")
     end
   end
 
@@ -37,7 +41,7 @@ class Vacation < ApplicationRecord
     end
 
     if vacation_days < 5
-      errors.add(:base, "Nao pode ter menos que 5 dias consecutivos")
+      errors.add(:base, "Nao pode tirar menos que 5 dias consecutivos")
     end
   end
 

@@ -11,27 +11,25 @@ function Navbar() {
 
           {/* Navigation items */}
           <ul className="flex space-x-4">
-            <li>
-              <a
-                href="/colaboradores"
-                className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
-              >
-                Colaboradores
-              </a>
-            </li>
-            <li>
-              <a
-                href="/ferias"
-                className="text-white hover:text-gray-300 transition duration-300 ease-in-out"
-              >
-                Ferias
-              </a>
-            </li>
+          <Link to="/employees">
+          <li>
+            <p className="text-white hover:text-gray-300 transition duration-300 ease-in-out">
+              Colaboradores
+            </p>
+          </li>
+          </Link>
+          <Link to="/vacations">
+          <li>
+            <p className="text-white hover:text-gray-300 transition duration-300 ease-in-out">
+              Ferias
+            </p>
+          </li>
+          </Link>
             {/* Add more navigation items as needed */}
           </ul>
         </div>
       </div>
-    </nav>
+  </nav>
   )
 }
 

@@ -23,3 +23,17 @@
 .dropdown-item:hover{
     background-color: aliceblue;
 }
+
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    width: fit-content;
+    height: fit-content;
+    border: solid black 1px;
+    
+}
+
+.dropdown-item.selected {
+    background-color: #0d6efd;
+    color: #fff;
+}

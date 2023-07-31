@@ -1,22 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { getColaboradores } from "../../services/EmployeesService";
-
-function EmployeeList() {
-  const [employees, setEmployees] = useState([]);
-
-  useEffect(() => {
-      fetchEmployees();
-    }, []);
-
-  const fetchEmployees = async () => {
-    try {
-      const response = await getColaboradores();
-        setEmployees(response);
-        console.log("Colaborador List:", response);
-    } catch (error) {
-      console.error("Erro ao obter informacoes dos colaboradores:", error);
-    }
-  };
+function EmployeeList({employees}) {
 
   return (
     <div className="p-4">
