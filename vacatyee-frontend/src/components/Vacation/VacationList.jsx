@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { removeVacation } from '../../services/VacationsService';
 
-function VacationList({onVacationRemoved, vacations}) {
+function VacationList({onVacationRemoved, vacations, employees}) {
 
   const calcDays = (start, end) => {
     let days = 0;
@@ -32,7 +32,15 @@ function VacationList({onVacationRemoved, vacations}) {
         console.error('Erro ao excluir as ferias do colaborador',error)
       }
     }
+  }
 
+  const handleEmployees = (employeeId) => {
+    if(employees !== undefined) {
+      let employee =  employees.find((employee) => employee.id === employeeId);
+      debugger;
+      return employee.name;
+    }
+    return "ROnaldo";
   }
 
   return (
@@ -55,7 +63,7 @@ function VacationList({onVacationRemoved, vacations}) {
           ? vacations.map((vacation, index) => (
               <tr key={index}>
                 <td className="border p-2">{index + 1}</td>
-                <td className="border p-2">{vacation.employee_id}</td>
+                <td className="border p-2">{handleEmployees(vacation.employee_id)}</td>
                 <td className="border p-2">{vacation.start_date}</td>
                 <td className="border p-2">{vacation.end_date}</td>
                 <td className="border p-2">{calcDays(vacation.start_date, vacation.end_date)}</td>

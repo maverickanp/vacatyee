@@ -12,7 +12,7 @@ function Vacation() {
   useEffect(() => {
     fetchEmployees();
     fetchVacations();
-  },[]);
+  }, []);
 
   const fetchEmployees = async () => {
     try {
@@ -37,14 +37,14 @@ function Vacation() {
     setVacations([...vacations, vacation]);
   };
   const handleVacationRemoved = (id) => {
-    setVacations((prevVacations) => prevVacations.filter((vacation) => vacation.id !== id));
-    console.log("REMOVED");
+    let afterRemove = vacations.filter((vacation) => vacation.id !== id);
+    setVacations(afterRemove);
   };
   return (
     
     <div className='flex items-center justify-around border'>
-      <AddVacationForm handleVacationAdded={handleVacationAdded} employees={employees}/>
-      <VacationList handleVacationRemoved={handleVacationRemoved} vacations={vacations}/>
+      <AddVacationForm onVacationAdded={handleVacationAdded} employees={employees}/>
+      <VacationList onVacationRemoved={handleVacationRemoved} employees={employees} vacations={vacations}/>
     </div>
   );
 }
